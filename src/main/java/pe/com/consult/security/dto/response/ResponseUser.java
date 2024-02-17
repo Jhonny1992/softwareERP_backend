@@ -1,13 +1,14 @@
 package pe.com.consult.security.dto.response;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class ResponseUser implements Serializable {
 
     private long id;
     private String username;
     private String name;
-    private String role;
+    private List<String> role;
     private String jwt;
 
     public long getId() {
@@ -34,11 +35,11 @@ public class ResponseUser implements Serializable {
         this.name = name;
     }
 
-    public String getRole() {
+    public List<String> getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(List<String> role) {
         this.role = role;
     }
 

@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
 
 @Data
 @AllArgsConstructor
@@ -20,11 +19,13 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column( name = "id_product")
-    private Long id;
+    private long id;
+    @Column( name = "code_product")
+    private String codeProduct;
     @Column( name = "name_product")
     private String name;
     @Column( name = "description_product")
     private String description;
-    @Column( name = "price_product")
-    private BigDecimal price;
+    @Column( name = "status_product")
+    private boolean status;
 }

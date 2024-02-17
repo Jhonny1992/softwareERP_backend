@@ -1,5 +1,6 @@
 package pe.com.consult.security.persistence.entity.security;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -45,6 +46,7 @@ public class User implements UserDetails {
     @ManyToOne//FK
     @JoinColumn( name = "id_branch", nullable = false, foreignKey = @ForeignKey( name = "FK_SucursalID") )
     private Branches branches;
+    @JsonIgnore
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RoleUser> roles;
 
@@ -57,6 +59,7 @@ public class User implements UserDetails {
                 .map(roleUser -> roleUser.getRole().getPermissions())
                 .flatMap(List::stream)
                 .map(permission -> new SimpleGrantedAuthority(permission.getOperation().getName()))
+                .distinct()
                 .collect(Collectors.toList());
 
         authorities.add(new SimpleGrantedAuthority("ROLE_" + this.roles.get(0).getRole().getName()));

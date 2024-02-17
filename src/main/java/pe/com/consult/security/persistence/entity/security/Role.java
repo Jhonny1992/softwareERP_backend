@@ -1,5 +1,6 @@
 package pe.com.consult.security.persistence.entity.security;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,6 +26,7 @@ public class Role {
     private String codeRole;
     @Column( name = "name_role")
     private String name;
+    @JsonIgnore
     @OneToMany(mappedBy = "role", fetch = FetchType.EAGER)
     private List<GrantedPermission> permissions;
 

@@ -18,6 +18,8 @@ import pe.com.consult.security.service.UserService;
 import pe.com.consult.security.service.util.GeneratorCodeService;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -67,10 +69,17 @@ public class UserServiceImpl implements UserService {
                 .build();
 
         user.setRoles(Arrays.asList(roleUser));
-        User prueb=   userRepository.save(user);
-        System.out.println("== ORDEN GUARDADA ==");
-        System.out.println(prueb);
-        return prueb;
+        return userRepository.save(user);
+    }
+
+    @Override
+    public Optional<User> findOneByUserName(String username) {
+        return userRepository.findByUserName(username);
+    }
+
+    @Override
+    public List<String> findRoleNamesByUserId(long id) {
+        return userRepository.findRoleNamesByUserId(id);
     }
 
     private void validatePassword(RequestUser requestUser) {

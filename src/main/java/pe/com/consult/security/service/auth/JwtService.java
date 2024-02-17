@@ -1,5 +1,6 @@
 package pe.com.consult.security.service.auth;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -44,5 +45,12 @@ public class JwtService {
     private SecretKey generateKey() {
         byte[] passwordDecoded = Decoders.BASE64.decode(SECRET_KEY);
         return Keys.hmacShaKeyFor(passwordDecoded);
+    }
+    public String extractUsername(String jwt){
+        return extractAllClaims(jwt).getSubject();
+    }
+    private Claims extractAllClaims(String jwt) {
+        return Jwts.parser().verifyWith(generateKey()).build()
+                .parseSignedClaims(jwt).getPayload();
     }
 }
